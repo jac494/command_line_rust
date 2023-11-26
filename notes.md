@@ -20,3 +20,55 @@ C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\Wind
 ```
 
 * similar to `subprocess` in python is `std::process::Command` in rust (ref. page 8)
+
+Some runs of the initial `echor` program
+
+```txt
+[ 11:16AM ]  [ jac494@hp-laptop:~/Projects/command_line_rust/echor(main✗) ]
+ $ cargo run --quiet 1>out 2>err          
+[ 11:16AM ]  [ jac494@hp-laptop:~/Projects/command_line_rust/echor(main✗) ]
+ $ echo $?
+1
+[ 11:17AM ]  [ jac494@hp-laptop:~/Projects/command_line_rust/echor(main✗) ]
+ $ cat out
+[ 11:17AM ]  [ jac494@hp-laptop:~/Projects/command_line_rust/echor(main✗) ]
+ $ cat err
+error: The following required arguments were no
+t provided:
+    <TEXT>...
+
+USAGE:
+    echor [FLAGS] <TEXT>...
+
+For more information try --help
+[ 11:17AM ]  [ jac494@hp-laptop:~/Projects/command_line_rust/echor(main✗) ]
+ $ cargo run --quiet -- arg1 1>out1 2>err1
+[ 11:17AM ]  [ jac494@hp-laptop:~/Projects/command_line_rust/echor(main✗) ]
+ $ echo $?
+0
+[ 11:17AM ]  [ jac494@hp-laptop:~/Projects/command_line_rust/echor(main✗) ]
+ $ cat out
+[ 11:17AM ]  [ jac494@hp-laptop:~/Projects/command_line_rust/echor(main✗) ]
+ $ cat out1
+ArgMatches {
+    args: {
+        "text": MatchedArg {
+            occurs: 1,
+            indices: [
+                1,
+            ],
+            vals: [
+                "arg1",
+            ],
+        },
+    },
+    subcommand: None,
+    usage: Some(
+        "USAGE:\n    echor [FLAGS] <TEXT>...",
+    ),
+}
+[ 11:17AM ]  [ jac494@hp-laptop:~/Projects/command_line_rust/echor(main✗) ]
+ $ cat err1
+[ 11:17AM ]  [ jac494@hp-laptop:~/Projects/command_line_rust/echor(main✗) ]
+ $
+```
