@@ -72,3 +72,16 @@ ArgMatches {
 [ 11:17AM ]  [ jac494@hp-laptop:~/Projects/command_line_rust/echor(main✗) ]
  $
 ```
+
+It is worth noting that I was having some trouble with rustc version for a bit; it kept reporting that I was using 1.66 when trying to run `cargo test` because of a dependency on (I think?) 1.69 or greater; when I checked in dnf and made sure I was up-to-date it looked like it was installing 1.74. I finally realized that maybe somehow I was referencing a different version than what was being installed via dnf, so I checked and lo and behold `which rustc` and `which cargo` were both pointing to `~/.cargo` in my home dir. I checked in /usr/bin and cargo was there, so I ran `mv ~/.cargo ~/.cargo.bak` and `which cargo` was now reporting `/usr/bin/cargo` along with showing version 1.74; final result:
+
+```txt
+[  6:53PM ]  [ jac494@hp-laptop:~/Projects/command_line_rust/echor(main✗) ]
+ $ which cargo
+/usr/bin/cargo
+[  6:53PM ]  [ jac494@hp-laptop:~/Projects/command_line_rust/echor(main✗) ]
+ $ cargo --version
+cargo 1.74.0
+```
+
+...and now cargo test is working just fine. **This was found when trying to use the `predicates` crate as part of chapter 2: test for echo; p.33**
